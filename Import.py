@@ -21,6 +21,7 @@ from matplotlib import pyplot as plt
 from sklearn.utils import shuffle
 from sklearn.model_selection import GridSearchCV, StratifiedKFold, train_test_split
 from sklearn.tree import DecisionTreeClassifier
+from sklearn import svm
 
 
 data = pd.read_csv("data.csv")              #read data
@@ -34,26 +35,31 @@ y = data['class']                                                               
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=1)       #train
 
 
-############### Naive Bayes ##################
-
+#~~~~~~~~~~ Naive Bayes ~~~~~~~~~~#
 classifier = GaussianNB()
 classifier.fit(x_train, y_train)
 
 y_pred = classifier.predict(x_test)
 accuracy = accuracy_score(y_test, y_pred)*100
-print(accuracy)
+print("Accuracy for Naive Bayes     = ", "%0.2f" % accuracy)
+#~~~~~~~~~~ Naive Bayes ~~~~~~~~~~#
 
-############### Naive Bayes ##################
 
-
-############### Decision Tree ##################
-
+#~~~~~~~~~~ Decision Tree ~~~~~~~~~~#
 classifier2 = DecisionTreeClassifier()
-classifier2 = classifier2.fit(x_train, y_train)
+classifier2.fit(x_train, y_train)
 
 y_pred2 = classifier2.predict(x_test)
 accuracy2 = accuracy_score(y_test, y_pred2)*100
-print(accuracy2)
+print("Accuracy for Decision Tree   = ", "%0.2f" % accuracy2)
+#~~~~~~~~~~ Decision Tree ~~~~~~~~~~#
 
-############### Decision Tree ##################
 
+#~~~~~~~~~~ Support Vector Machine ~~~~~~~~~~#
+classifier3 = svm.SVC(kernel='rbf')
+classifier3.fit(x_train, y_train)
+
+y_pred3 = classifier3.predict(x_test)
+accuracy3 = accuracy_score(y_test, y_pred3)*100
+print("Accuracy for SVM             = ", "%0.2f" % accuracy3)
+#~~~~~~~~~~ Support Vector Machine ~~~~~~~~~~#
